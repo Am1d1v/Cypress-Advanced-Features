@@ -44,7 +44,6 @@ describe('Contact form', () => {
         // Select email input field then insert data
         cy.get('[data-cy="contact-input-email"]').type('UserEmail@gmail.com{enter}');
 
-        
         // Select submit button and check that it is sending inputed data
         cy.get('[data-cy="contact-btn-submit"]').contains('Sending');
 
@@ -61,7 +60,29 @@ describe('Contact form', () => {
             expect(el).to.not.have.attr('disabled');
             expect(el.text()).to.not.equal('Sending...');
         });
-                                                
+                          
+        // Select message input field then lose focus on it
+        cy.get('[data-cy="contact-input-message"]').blur();
+        // Check that after loosing focus class of the element changed
+        cy.get('[data-cy="contact-input-message"]').parent().then((el) => {
+            expect(el.attr('class')).to.contains('invalid');
+        });
+
+        // Select name input field then lose focus on it
+        cy.get('[data-cy="contact-input-name"]').focus().blur();
+        // Check that after loosing focus class of the element changed
+        cy.get('[data-cy="contact-input-name"]').parent().then((el) => {
+            expect(el.attr('class')).to.contains('invalid');
+        });
+
+        // Select email input field then lose focus on it
+        cy.get('[data-cy="contact-input-email"]').focus().blur();
+        // Check that after loosing focus class of the element changed
+        cy.get('[data-cy="contact-input-email"]').parent().then((el) => {
+            expect(el.attr('class')).to.contains('invalid');
+        });
+
+
     });
 
 });
