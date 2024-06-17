@@ -15,9 +15,14 @@ describe('Contact form', () => {
         cy.get('[data-cy="contact-input-email"]').type('UserEmail@gmail.com');
 
         // Select submit button then click it
-        cy.get('[data-cy="contact-btn-submit"]').contains('Send Message');
+        /* cy.get('[data-cy="contact-btn-submit"]').contains('Send Message');
         cy.get('[data-cy="contact-btn-submit"]').should('not.have.attr', 'disabled');
-        cy.get('[data-cy="contact-btn-submit"]').click();
+        cy.get('[data-cy="contact-btn-submit"]').click(); */
+        cy.get('[data-cy="contact-btn-submit"]').then((el) => {
+            expect(el.attr('disabled')).to.be.undefined
+            expect(el.text()).to.contain('Send Message');
+        });
+
         
         // Select submit button and check that it is sending inputed data
         cy.get('[data-cy="contact-btn-submit"]').contains('Sending');
